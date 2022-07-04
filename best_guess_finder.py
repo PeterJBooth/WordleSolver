@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from time import time
 
 
 class BestGuessFinder:
@@ -19,30 +18,6 @@ class BestGuessFinder:
                                               '% of Words Removed': [''] * 10},
                                         index=([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
         return result_dataframe
-
-    def get_answer_if_solved(self, matching_words_array, word_dataframe):
-
-        self.get_number_of_remaining_words(matching_words_array)
-        answer, is_solved = self.if_one_word_remains_get_word(matching_words_array, word_dataframe)
-
-        return answer, is_solved
-
-    def if_one_word_remains_get_word(self, matching_words_array, word_dataframe):
-
-        is_true = True
-        if self.remaining_words_count == 1:
-
-            is_solved = True
-
-            answer_index = matching_words_array[matching_words_array != -1][0]
-            answer = word_dataframe.loc[answer_index, 'words']
-            print(type(answer))
-        else:
-
-            is_solved = False
-            answer = '_____'
-
-        return answer, is_solved
 
     def get_best_guesses(self, matching_words_array, word_dataframe):
 
@@ -170,25 +145,25 @@ class BestGuessFinder:
             self.word_removed_count[best_guess_index] / self.remaining_words_count * 100
         self.best_guess_dataframe.loc[position, '% of Words Removed'] = words_removed_percentage
 
-    def get_best_guess(self, matching_words_array, word_dataframe):
+    def get_answer_if_solved(self, matching_words_array, word_dataframe):
 
-        word_removed_count = [0] * 12_972
         self.get_number_of_remaining_words(matching_words_array)
+        answer, is_solved = self.if_one_word_remains_get_word(matching_words_array, word_dataframe)
 
-        for i in range(len(word_dataframe)):
-            word_removed_count[i] = self.get_expected_number_of_words_removed(matching_words_array[i])
+        return answer, is_solved
 
-        highest_word_removed_count_index = word_removed_count.index(max(word_removed_count))
+    def if_one_word_remains_get_word(self, matching_words_array, word_dataframe):
 
-        best_guess = word_dataframe.loc[highest_word_removed_count_index, 'words']
+        if self.remaining_words_count == 1:
 
-        return best_guess
+            is_solved = True
 
-    @staticmethod
-    def perform_test(word_count_for_each_result, total_number_of_words):
+            answer_index = matching_words_array[matching_words_array != -1][0]
+            answer = word_dataframe.loc[answer_index, 'words']
 
-        # Remove later
-        if sum(word_count_for_each_result) != total_number_of_words:
-            print(f'ERROR! Expected number of words is {total_number_of_words},'
-                  f' word index count is {sum(word_count_for_each_result)}')
-            exit()
+        else:
+
+            is_solved = False
+            answer = '_____'
+
+        return answer, is_solved

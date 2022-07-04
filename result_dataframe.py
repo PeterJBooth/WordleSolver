@@ -26,7 +26,6 @@ class ResultDataframe:
         self.add_result_to_result_dataframe(result)
         self.count_number_of_observed_occurrences_of_all_letters_in_answer()
 
-
     def add_result_to_result_dataframe(self, result):
 
         for i in range(5):

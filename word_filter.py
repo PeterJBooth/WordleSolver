@@ -126,7 +126,10 @@ class WordFilter:
 
         return check_if_word_meets_G_condition
 
-    def remove_words_from_array_not_meeting_condition(self, word_dataframe, result_dataframe, matching_words_array):
+    def remove_words_from_array_not_meeting_condition(self, word_dataframe, result_dataframe, matching_words_array,
+                                                      chosen_word, result):
+
+        result_dataframe = result_dataframe.create_dataframe_with_result_and_letter_counts(chosen_word, result)
 
         word_indexes_not_meeting_condition = self.get_indexes_of_words_not_meeting_condition_of_result(word_dataframe,
                                                                                                        result_dataframe)

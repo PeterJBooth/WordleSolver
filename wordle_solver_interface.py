@@ -71,3 +71,10 @@ Green  (G) - The letter is in the word and in the right place
                                           %%%%%% {l0}    {l1}    {l2}    {l3}    {l4} %%%%%%
                                           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
               """)
+
+    @staticmethod
+    def display_number_of_remaining_words(matching_word_array):
+
+        print()
+        print(f'{matching_word_array.shape[1] - 244} Words remaining!')
+        print()
